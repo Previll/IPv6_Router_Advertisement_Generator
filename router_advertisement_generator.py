@@ -67,7 +67,7 @@ def main():
     template_packet = modify_template_packet()
     unsolicited_ra_thread = threading.Thread(target=periodically_send_unsolicited_router_advertisement, daemon=True)
     unsolicited_ra_thread.start()
-    solicited_ra_sniffer = sniff(prn=listen_for_router_solicitation_packets,store=True)
+    solicited_ra_sniffer = sniff(prn=listen_for_router_solicitation_packets,store=False)
     #solicited_ra_sniffer.start()
     
     #solicited_ra_sniffer.join()
@@ -75,7 +75,7 @@ def main():
 
 def listen_for_router_advertisement_packets():
     print("Listening for Router Advertisements (ICMPv6 RA)...")
-    icmpv6_ra_sniffer = AsyncSniffer(prn=capture_ra, filter="icmp6 && ip6[40] == 134", store=True,count=1,quiet=True)
+    icmpv6_ra_sniffer = AsyncSniffer(prn=capture_ra, filter="icmp6 && ip6[40] == 134", store=False,count=1,quiet=True)
     icmpv6_ra_sniffer.start()
     icmpv6_ra_sniffer.join()
 
